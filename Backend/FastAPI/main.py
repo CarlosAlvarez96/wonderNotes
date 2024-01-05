@@ -1,6 +1,11 @@
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from Backend.FastAPi.routers import users, notes, jwt_auth_users, users_db
+from routers import users, notes, jwt_auth_users, users_db
 
 app = FastAPI()
 
