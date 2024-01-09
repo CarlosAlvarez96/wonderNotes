@@ -8,6 +8,10 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import jwt, JWTError
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
+from db.models.User import User
+from db.models.User import UserDB
+from db.client import db_client
+
 
 ALGORITHM = "HS256"
 ACCESS_TOKEN_DURATION = 10000000
@@ -22,43 +26,43 @@ oauth2 = OAuth2PasswordBearer(tokenUrl="login")
 crypt = CryptContext(schemes=["bcrypt"])
 
 
-class User(BaseModel):
-    username: str
-    full_name: str
-    email: str
-    disabled: bool
+# class User(BaseModel):
+#     username: str
+#     full_name: str
+#     email: str
+#     disabled: bool
 
 
-class UserDB(User):
-    password: str
+# class UserDB(User):
+#     password: str
 
 
-users_db = {
-    "mouredev": {
-        "username": "mouredev",
-        "full_name": "Brais Moure",
-        "email": "braismoure@mourede.com",
-        "disabled": False,
-        "password": "$2a$12$AeTUjhJdYpNlWWAqcmttlOx2gMo9cxyE8wUcao2w5opZCa5ejCKpS"
-    },
-    "mouredev2": {
-        "username": "mouredev2",
-        "full_name": "Brais Moure 2",
-        "email": "braismoure2@mourede.com",
-        "disabled": True,
-        "password": "$2a$12$8IOqtwZhFsqd25lDYkY2OOqBzEpJLHj2vwUA8p0y9J8.vyNdiJgkC"
-    }
-}
+# users_db = {
+#     "mouredev": {
+#         "username": "mouredev",
+#         "full_name": "Brais Moure",
+#         "email": "braismoure@mourede.com",
+#         "disabled": False,
+#         "password": "$2a$12$AeTUjhJdYpNlWWAqcmttlOx2gMo9cxyE8wUcao2w5opZCa5ejCKpS"
+#     },
+#     "mouredev2": {
+#         "username": "mouredev2",
+#         "full_name": "Brais Moure 2",
+#         "email": "braismoure2@mourede.com",
+#         "disabled": True,
+#         "password": "$2a$12$8IOqtwZhFsqd25lDYkY2OOqBzEpJLHj2vwUA8p0y9J8.vyNdiJgkC"
+#     }
+# }
 
 
 def search_user_db(username: str):
-    if username in users_db:
-        return UserDB(**users_db[username])
+    if username in db_client:
+        return UserDB(**db_client[username])
 
 
 def search_user(username: str):
-    if username in users_db:
-        return User(**users_db[username])
+    if username in db_client:
+        return User(**db_client[username])
 
 
 async def auth_user(token: str = Depends(oauth2)):
@@ -91,7 +95,7 @@ async def current_user(user: User = Depends(auth_user)):
 @router.post("/login")
 async def login(form: OAuth2PasswordRequestForm = Depends()):
 
-    user_db = users_db.get(form.username)
+    user_db = search_user_db(form.username)
     if not user_db:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="El usuario no es correcto")
