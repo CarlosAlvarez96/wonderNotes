@@ -14,7 +14,7 @@ from db.client import db_client
 
 
 ALGORITHM = "HS256"
-ACCESS_TOKEN_DURATION = 10000000
+ACCESS_TOKEN_DURATION = 100000000000000000000
 SECRET = "201d573bd7d1344d3a3bfce1550b69102fd11be3db6d379508b6cccc58ea230b"
 
 router = APIRouter(prefix="/jwtauth",
