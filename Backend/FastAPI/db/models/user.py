@@ -7,7 +7,6 @@ class User(BaseModel):
     id: Optional[str] = None
     username: str
     email: str
-    disabled: bool
 
 
 class UserDB(User):
