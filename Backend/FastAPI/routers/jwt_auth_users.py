@@ -8,8 +8,8 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import jwt, JWTError
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
-from db.models.User import User
-from db.models.User import UserDB
+from db.models.user import User
+from db.models.user import UserDB
 from db.client import db_client
 
 
