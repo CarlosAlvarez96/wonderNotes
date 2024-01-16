@@ -91,6 +91,32 @@ async def current_user(user: User = Depends(auth_user)):
 
     return user
 
+@router.post("/register")
+async def register_user(form: OAuth2PasswordRequestForm = Depends()):
+    username = form.username
+    password = form.password
+
+    # Verifica si el usuario ya existe en la base de datos
+    if username in db_client:
+        raise HTTPException(status_code=400, detail="El usuario ya está registrado")
+
+    # Hashea la contraseña antes de almacenarla
+    hashed_password = crypt.hash(password)
+
+    # Crea un nuevo usuario en la base de datos
+    new_user = UserDB(
+        username=username,
+        email="",  # Puedes incluir otros campos si es necesario
+        password=hashed_password,
+        id=None,
+        disabled=False
+    )
+
+    db_client[username] = new_user.dict()
+
+    # Puedes devolver información adicional si es necesario
+    return {"message": "Usuario registrado correctamente"}
+
 
 @router.post("/login")
 async def login(form: OAuth2PasswordRequestForm = Depends()):
