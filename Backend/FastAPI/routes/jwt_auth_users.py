@@ -65,7 +65,7 @@ async def login(form: OAuth2PasswordRequestForm = Depends()):
     user_db = search_user_db(form.username)
     if not user_db:
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail="El usuario no está registrado")
+            status_code=status.HTTP_400_BAD_REQUEST, detail="El usuario no es correcto")
 
     user = search_user_db(form.username)
 
@@ -101,8 +101,8 @@ async def create_user(user: UserDB):
 
 
 
-@router.get("/users/me", response_model=User)
-async def me(current_user: User = Depends(current_user)):
+@router.get("/users/me", response_model=UserDB)
+async def me(current_user: UserDB = Depends(current_user)):
     return current_user
 
 

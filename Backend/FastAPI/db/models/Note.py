@@ -3,7 +3,7 @@ from typing import Optional
 
 class Note(BaseModel):
     id: Optional[str] = None
-    userID: str  # Assuming userID is a string
+    user_email: str
     header: str
     body: str
     tags: Optional[list] = []

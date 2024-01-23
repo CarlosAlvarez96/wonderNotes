@@ -15,7 +15,6 @@ async def get_notes():
 async def get_note(note_id: str):
     return search_note("_id", ObjectId(note_id))
 
-
 @router.post("/", response_model=Note, status_code=status.HTTP_201_CREATED)
 async def create_note(note: Note):
     note_dict = dict(note)
@@ -24,17 +23,12 @@ async def create_note(note: Note):
     created_note = db_client.notes.find_one({"_id": inserted_id})
     return Note(**created_note)
 
-@router.put("/{note_id}", response_model=Note)
-async def update_note(note_id: str, updated_fields: dict):
-    # Validar que al menos un campo ha sido proporcionado para la actualización
-    if not updated_fields:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="No se proporcionaron campos para la actualización")
-
-    # Actualizar solo los campos proporcionados en el diccionario `updated_fields`
-    db_client.notes.find_one_and_update({"_id": ObjectId(note_id)}, {"$set": updated_fields})
-
-    # Obtener la nota actualizada
-    updated_note = db_client.notes.find_one({"_id": ObjectId(note_id)})
+@router.put("/", response_model=Note)
+async def update_note(note: Note):
+    note_dict = dict(note)
+    del note_dict["id"]
+    db_client.notes.find_one_and_replace({"_id": ObjectId(note.id)}, note_dict)
+    updated_note = db_client.notes.find_one({"_id": ObjectId(note.id)})
     return Note(**updated_note)
 
 @router.delete("/{note_id}", status_code=status.HTTP_204_NO_CONTENT)
