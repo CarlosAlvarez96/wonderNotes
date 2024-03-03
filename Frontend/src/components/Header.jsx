@@ -1,3 +1,4 @@
+// Header.js
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -5,7 +6,7 @@ import { useTheme } from '../context/ThemeContext';
 
 const Header = () => {
   const { logout, token } = useAuth();
-  const { darkMode, toggleDarkMode } = useTheme();
+  const { themeClass, toggleDarkMode } = useTheme(); // Cambiado a themeClass
   const navigate = useNavigate();
 
   const [hoverClass, setHoverClass] = useState('');
@@ -31,7 +32,7 @@ const Header = () => {
   };
 
   const toggleHoverClass = () => {
-    setHoverClass(darkMode ? 'gray-700' : 'gray-300');
+    setHoverClass(themeClass === 'bg-gray-800 text-white' ? 'gray-700' : 'gray-300');
   };
 
   const resetHoverClass = () => {
@@ -39,18 +40,18 @@ const Header = () => {
   };
 
   return (
-    <div className={`bg-${darkMode ? 'gray-800' : 'gray-200'} text-${darkMode ? 'white' : 'black'}`}>
+    <div className={`bg-${themeClass}`}>
       <div className="flex flex-row justify-evenly col-span-6 p-4 border-b-2">
-        <h2 className="text-4xl font-bold p-2 m-2">WonderNotes✒️</h2>
+        <h2 className={`text-4xl font-bold p-2 m-2 ${themeClass}`}>WonderNotes✒️</h2>
         <nav>
           <ul className="flex flex-row justify-between p-4">
             <button
               onClick={toggleDarkMode}
-              className={`bg-${darkMode ? 'gray-600' : 'gray-300'} hover:bg-${hoverClass} text-white font-bold px-4 py-2 rounded`}
+              className={`bg-${themeClass}  font-bold px-4 py-2 rounded`}
               onMouseEnter={toggleHoverClass}
               onMouseLeave={resetHoverClass}
             >
-              {darkMode ? 'Modo Claro' : 'Modo Oscuro'}
+              {themeClass === 'bg-gray-800 text-white' ? 'Modo Claro' : 'Modo Oscuro'}
             </button>
             <button
               onClick={handleNotes}

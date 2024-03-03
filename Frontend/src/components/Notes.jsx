@@ -14,7 +14,9 @@ const Notes = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/notes/?user_email=${email}`);
+        const apiUrl = "https://wondernotes.onrender.com"
+        const response = await fetch(`${apiUrl}/notes/?user_email=${email}`);
+    
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -63,20 +65,23 @@ const Notes = () => {
         ))}
       </div>
 
-      {/* Notas */}
-      <div className={`col-span-7 max-w-md mx-auto p-2 ${themeClass}`}>
-        {notas.length > 0 ? (
-          notas.map((nota, index) => (
-            <div key={index} className={` border border-white p-4 mb-4 rounded-lg`}>
-              <p className={`text-xl font-bold ${themeClass}`}>Título: {nota.header}</p>
-              <p className={`text-gray-300 ${themeClass}`}>Cuerpo: {nota.body}</p>
-              <p className={`text-gray-300 ${themeClass}`}>Tags: {nota.tags.join(', ')}</p>
-            </div>
-          ))
-        ) : (
-          <p className={`text-gray-300 ${themeClass}`}>No hay notas disponibles para este usuario.</p>
-        )}
+{/* Notas */}
+<div className={`col-span-7 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4 ${themeClass}`}>
+  {notas.length > 0 ? (
+    notas.map((nota, index) => (
+      <div key={index} className={`border border-white p-4 mb-4 rounded-lg text-justify ${themeClass}`}>
+        <p className={`text-xl font-bold ${themeClass}`}>Título: {nota.header}</p>
+        <p className={`text-gray-300 ${themeClass}`}>Cuerpo: {nota.body}</p>
+        <p className={`text-gray-300 ${themeClass}`}>Tags: {nota.tags.join(', ')}</p>
       </div>
+    ))
+  ) : (
+    <p className={`text-gray-300 ${themeClass}`}>No hay notas disponibles para este usuario.</p>
+  )}
+</div>
+
+
+
     </div>
   );
 };

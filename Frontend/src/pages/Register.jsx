@@ -58,7 +58,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8000/jwtauth/register',
+        'https://wondernotes.onrender.com/jwtauth/register',
         {
           username: formData.username,
           email: formData.email,

@@ -16,7 +16,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8000/jwtauth/login',
+        'https://wondernotes.onrender.com/jwtauth/login',
         `grant_type=&username=${username}&password=${password}&scope=&client_id=&client_secret=`,
         {
           headers: {
@@ -25,7 +25,7 @@ const Login = () => {
         }
       );
 
-      const userResponse = await axios.get('http://127.0.0.1:8000/jwtauth/users/me', {
+      const userResponse = await axios.get('https://wondernotes.onrender.com/jwtauth/users/me', {
         headers: {
           Authorization: `Bearer ${response.data.access_token}`,
         },
