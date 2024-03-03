@@ -1,13 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Notas from '../components/Notas.jsx';
+import Notas from '../components/Notas.astro';
+import AddNota from '../components/AddNota.astro';
+
 ---
 
 
 <Layout title="Welcome to Astro.">
-	<main class="col-span-5 p-4">
-		<Notas/>
-	</main>
+	<main class="col-span-5 p-4 max-w-screen-md mx-auto text-white text-lg leading-6">
+		<Notas />
+		<!-- <AddNota/> -->
+	 </main>	 
 </Layout>
 
 <style>
