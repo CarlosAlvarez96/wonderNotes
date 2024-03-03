@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, status
-from db.models.note import Note
+from db.models.Note import Note
 from db.client import db_client
 from bson import ObjectId
 
