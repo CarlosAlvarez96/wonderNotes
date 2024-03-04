@@ -1,5 +1,4 @@
-// ThemeContext.js
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from "react";
 
 const ThemeContext = createContext();
 
@@ -9,11 +8,9 @@ export const ThemeProvider = ({ children }) => {
   const toggleDarkMode = () => {
     setDarkMode((prevMode) => !prevMode);
   };
-
-  // Definir las clases de Tailwind para los temas
   const themeClasses = {
-    light: 'bg-gray-100 text-black', // Ajusta según tus estilos de Tailwind para el tema claro
-    dark: 'bg-gray-800 text-white', // Ajusta según tus estilos de Tailwind para el tema oscuro
+    light: "bg-gray-100 text-black",
+    dark: "bg-gray-800 text-white",
   };
 
   const themeClass = darkMode ? themeClasses.dark : themeClasses.light;
@@ -28,7 +25,7 @@ export const ThemeProvider = ({ children }) => {
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (!context) {
-    throw new Error('useTheme must be used within a ThemeProvider');
+    throw new Error("useTheme must be used within a ThemeProvider");
   }
   return context;
 };

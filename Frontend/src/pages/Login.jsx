@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -33,14 +34,23 @@ const Login = () => {
 
       const userEmail = userResponse.data.email || 'default@example.com';
       setEmail(userEmail);
-
-      localStorage.setItem('token', response.data.access_token);
-      login(response.data.access_token);
-
+      console.log(userEmail)
+ 
+      login(response.data.access_token, username,password, userEmail);
+      Swal.fire({
+        icon:'success',
+        title: 'Login successful',
+        text: `Welcome, ${username}!`,
+      })
       console.log('Login successful');
       navigate('/');
     } catch (error) {
       console.error('Login failed', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Login Failed',
+        text: 'Credentials error',
+      });
     }
   };
 
@@ -91,7 +101,7 @@ const Login = () => {
         </div>
         <button
           type="submit"
-          className={`text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ${themeClass}`}
+          className={`${themeClass} bg-gray-300 hover:bg-gray-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ${themeClass}`}
         >
           Submit
         </button>

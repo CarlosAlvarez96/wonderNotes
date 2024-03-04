@@ -1,18 +1,18 @@
 // Header.js
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { useTheme } from '../context/ThemeContext';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 
 const Header = () => {
   const { logout, token } = useAuth();
-  const { themeClass, toggleDarkMode } = useTheme(); // Cambiado a themeClass
+  const { themeClass, toggleDarkMode } = useTheme();
   const navigate = useNavigate();
 
-  const [hoverClass, setHoverClass] = useState('');
+  const [hoverClass, setHoverClass] = useState("");
 
   const handleLogin = () => {
-    navigate('/login');
+    navigate("/login");
   };
 
   const handleLogout = () => {
@@ -20,29 +20,33 @@ const Header = () => {
   };
 
   const handleRegister = () => {
-    navigate('/register');
+    navigate("/register");
   };
 
   const handleNotes = () => {
-    navigate('/');
+    navigate("/");
   };
 
   const handleAddNote = () => {
-    navigate('/noteForm');
+    navigate("/noteForm");
   };
 
   const toggleHoverClass = () => {
-    setHoverClass(themeClass === 'bg-gray-800 text-white' ? 'gray-700' : 'gray-300');
+    setHoverClass(
+      themeClass === "bg-gray-800 text-white" ? "gray-700" : "gray-300"
+    );
   };
 
   const resetHoverClass = () => {
-    setHoverClass('');
+    setHoverClass("");
   };
 
   return (
     <div className={`bg-${themeClass}`}>
       <div className="flex flex-row justify-evenly col-span-6 p-4 border-b-2">
-        <h2 className={`text-4xl font-bold p-2 m-2 ${themeClass}`}>WonderNotes✒️</h2>
+        <h2 className={`text-4xl font-bold p-2 m-2 ${themeClass}`}>
+          WonderNotes✒️
+        </h2>
         <nav>
           <ul className="flex flex-row justify-between p-4">
             <button
@@ -51,7 +55,9 @@ const Header = () => {
               onMouseEnter={toggleHoverClass}
               onMouseLeave={resetHoverClass}
             >
-              {themeClass === 'bg-gray-800 text-white' ? 'Modo Claro' : 'Modo Oscuro'}
+              {themeClass === "bg-gray-800 text-white"
+                ? "Modo Claro"
+                : "Modo Oscuro"}
             </button>
             <button
               onClick={handleNotes}

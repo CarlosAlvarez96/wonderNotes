@@ -2,7 +2,6 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import RootPage from "./pages/RootPage";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import Notes from "./components/Notes";
-import NotesUser from "./pages/NotesUser";
 import ErrorPage from "./pages/ErrorPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -15,14 +14,12 @@ function App() {
     {
       path: "/",
       element: <RootPage />,
-      //Si hay algún error te lleva a aquí
       errorElement: <ErrorPage />,
       children: [
         {
           element: <ProtectedRoute redirectPath="/login" />,
           children: [
             { index: true, element: <Notes /> },
-            { path: "productos/:productoID", element: <NotesUser /> },
             { path: "noteForm", element: <NoteForm /> },
           ],
         },

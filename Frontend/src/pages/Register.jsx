@@ -1,17 +1,17 @@
-import  { useState } from 'react';
-import axios from 'axios';
-import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
-import { useTheme } from '../context/ThemeContext';
+import { useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
 
 const Register = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { themeClass } = useTheme();
 
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
+    username: "",
+    email: "",
+    password: "",
   });
 
   const handleChange = (e) => {
@@ -24,21 +24,20 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validaciones
     if (formData.username.length < 6) {
       Swal.fire({
-        icon: 'warning',
-        title: 'Invalid Username',
-        text: 'Username must be at least 6 characters long.',
+        icon: "warning",
+        title: "Invalid Username",
+        text: "Username must be at least 6 characters long.",
       });
       return;
     }
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       Swal.fire({
-        icon: 'warning',
-        title: 'Invalid Email',
-        text: 'Please enter a valid email address.',
+        icon: "warning",
+        title: "Invalid Email",
+        text: "Please enter a valid email address.",
       });
       return;
     }
@@ -48,17 +47,16 @@ const Register = () => {
       !/(?=.*[A-Z])(?=.*[0-9])/.test(formData.password)
     ) {
       Swal.fire({
-        icon: 'warning',
-        title: 'Invalid Password',
-        text:
-          'Password must be at least 6 characters long and include at least one uppercase letter and one number.',
+        icon: "warning",
+        title: "Invalid Password",
+        text: "Password must be at least 6 characters long and include at least one uppercase letter and one number.",
       });
       return;
     }
 
     try {
       const response = await axios.post(
-        'https://wondernotes.onrender.com/jwtauth/register',
+        "https://wondernotes.onrender.com/jwtauth/register",
         {
           username: formData.username,
           email: formData.email,
@@ -66,27 +64,24 @@ const Register = () => {
         },
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );
 
-      // Maneja la respuesta del servidor después de un registro exitoso
-      console.log('Registration successful:', response.data);
+      console.log("Registration successful:", response.data);
       Swal.fire({
-        icon: 'success',
-        title: 'Registration Successful!',
+        icon: "success",
+        title: "Registration Successful!",
         text: `Welcome, ${formData.username}!`,
       });
-      // Puedes redirigir a otra página o realizar otras acciones después del registro
-      navigate("/login")
+      navigate("/login");
     } catch (error) {
-      // Maneja errores de registro
-      console.error('Registration failed:', error);
+      console.error("Registration failed:", error);
       Swal.fire({
-        icon: 'error',
-        title: 'Registration Failed',
-        text: 'An error occurred during registration.',
+        icon: "error",
+        title: "Registration Failed",
+        text: "An error occurred during registration.",
       });
     }
   };
@@ -154,7 +149,7 @@ const Register = () => {
         </div>
         <button
           type="submit"
-          className={`text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ${themeClass}`}
+          className={`${themeClass} bg-gray-300 hover:bg-gray-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ${themeClass}`}
         >
           Submit
         </button>
