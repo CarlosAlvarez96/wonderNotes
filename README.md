@@ -18,4 +18,4 @@
 ![Captura de pantalla 2024-03-10 132311](https://github.com/CarlosAlvarez96/wonderNotes/assets/116850911/f54fbc2e-00f8-4802-99e2-7ae4c8dd90cf)
 
 - **Check** your new created notes
-- ![Captura de pantalla 2024-03-10 132705](https://github.com/CarlosAlvarez96/wonderNotes/assets/116850911/24e3454d-291a-45bb-9251-ec4dbfe16dcc)
+   ![Captura de pantalla 2024-03-10 132705](https://github.com/CarlosAlvarez96/wonderNotes/assets/116850911/24e3454d-291a-45bb-9251-ec4dbfe16dcc)
